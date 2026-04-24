@@ -186,7 +186,9 @@
         <source src="You're My Best Friend  Heartfelt Song About Friendship & Loyalty  Official Lyric Video.mp3"
             type="audio/mp3">
     </audio>
-
+ <audio id="sorryAudio">
+        <source src="sorry.mp3" type="audio/mpeg">
+    </audio>
     <div class="page" id="angerPage">
         <div class="card">
             <h1>How Angry Are You? 😅</h1>
@@ -521,6 +523,12 @@
             if (response.trim() !== '') {
                 document.getElementById('displayResponse').innerHTML = 'Her response: ' + response;
                 alert('Response submitted: ' + response); // For you to see
+                let sorryAudio = document.getElementById('sorryAudio');
+                if (sorryAudio) {
+                    sorryAudio.play().catch(() => {
+                        console.log('sorry.mp3 play blocked until user gesture');
+                    });
+                }
             } else {
                 alert('Please write something!');
             }
