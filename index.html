@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dear Best Friend 💙</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            overflow: hidden;
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+        }
+
+        .heart {
+            position: absolute;
+            color: red;
+            top: 0;
+            animation: float 10s linear infinite;
+            z-index: 10;
+        }
+
+        .flower {
+            position: absolute;
+            color: hotpink;
+            top: 0;
+            animation: float 10s linear infinite;
+            z-index: 10;
+        }
+
+        .butterfly {
+            position: absolute;
+            color: purple;
+            top: 0;
+            animation: float 12s linear infinite;
+            z-index: 10;
+        }
+
+        @keyframes float {
+            from {
+                top: 0;
+                opacity: 1;
+            }
+
+            to {
+                top: 100vh;
+                opacity: 0;
+            }
+        }
+
+        .page {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+            color: white;
+            animation: fade 1s ease;
+        }
+
+        .active {
+            display: flex;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            max-width: 800px;
+            line-height: 1.8;
+        }
+
+        button {
+            margin: 10px;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            background: white;
+            color: #333;
+            transition: .3s;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+                margin-bottom: 15px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 14px;
+                margin: 8px;
+            }
+
+            textarea {
+                max-width: 90vw !important;
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            button {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+
+            textarea {
+                max-width: 90vw !important;
+                font-size: 13px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+        }
+
+        button:hover {
+            transform: scale(1.08);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, .2);
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        textarea {
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid white;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <audio id="bgMusic" autoplay loop>
+        <source src="You're My Best Friend  Heartfelt Song About Friendship & Loyalty  Official Lyric Video.mp3"
+            type="audio/mp3">
+    </audio>
+
+    <div class="page" id="angerPage">
+        <div class="card">
+            <h1>How Angry Are You? 😅</h1>
+            <input type="range" min="0" max="100" value="50" id="angerSlider" oninput="updateAnger()">
+            <p id="angerText">Hmm… little angry 😒</p>
+            <button onclick="nextPage()">Next 💙</button>
+        </div>
+    </div>
+    <div class="page" id="scratchPage">
+        <div class="card">
+            <h1>Scratch To Reveal 🎁</h1>
+            <button onclick="revealMsg()">Scratch Here ✨</button>
+            <p id="secretMsg" style="display:none;">You are special to me 💙</p>
+        </div>
+    </div>
+    <div class="page" id="timerPage">
+        <div class="card">
+            <h1>I’ve Been Waiting ⏳</h1>
+            <p id="timer"></p>
+            <button onclick="nextPage()">Next 💙</button>
+        </div>
+    </div>
+
+    <div class="page active" id="page1">
+        <div class="card">
+            <h1>Dear Best Friend 💌</h1>
+            <p>I made something special only for you… Please read till the end 🥺</p><button onclick="nextPage()">Start
+                ➡</button>
+            <p id="typing" style="margin-top: 20px; font-size: 20px; opacity: 0.95;"></p>
+        </div>
+    </div>
+
+    <div class="page" id="page2">
+        <div class="card">
+            <h1>Our Friendship 💙</h1>
+            <p>No matter what happens… our friendship means a lot to me 🌸</p><button onclick="nextPage()">Next</button>
+        </div>
+    </div>
+
+    <div class="page" id="page3">
+        <div class="card">
+            <h1>Question 1 🤔</h1>
+            <p>Do you remember our first chat?</p><button onclick="nextPage()">Yes 😊</button><button
+                onclick="noBtn()">No 😢</button>
+        </div>
+    </div>
+
+    <div class="page" id="page4">
+        <div class="card">
+            <h1>Question 2 😄</h1>
+            <p>Did we laugh together a lot?</p><button onclick="nextPage()">Yes 😊</button><button onclick="noBtn()">No
+                😢</button>
+        </div>
+    </div>
+
+    <div class="page" id="page5">
+        <div class="card">
+            <h1>Question 3 🌸</h1>
+            <p>Did I ever make you smile?</p><button onclick="nextPage()">Yes 😊</button><button onclick="noBtn()">No
+                😢</button>
+        </div>
+    </div>
+
+    <div class="page" id="page6">
+        <div class="card">
+            <h1>Question 4 💭</h1>
+            <p>Can friends make mistakes?</p><button onclick="nextPage()">Yes 😊</button><button onclick="noBtn()">No
+                😢</button>
+        </div>
+    </div>
+
+    <div class="page" id="page7">
+        <div class="card">
+            <h1>Question 5 🥺</h1>
+            <p>Can mistakes be forgiven?</p><button onclick="nextPage()">Yes 😊</button><button onclick="noBtn()">No
+                😢</button>
+        </div>
+    </div>
+
+    <div class="page" id="page8">
+        <div class="card">
+            <h1>Question 6 💙</h1>
+            <p>Am I your good friend?</p><button onclick="nextPage()">Yes 😊</button><button onclick="noBtn()">No
+                😢</button>
+        </div>
+    </div>
+
+    <div class="page" id="page9">
+        <div class="card">
+            <h1>Question 7 🌟</h1>
+            <p>Should we stay friends forever?</p><button onclick="nextPage()">Yes 😊</button><button
+                onclick="noBtn()">No 😢</button>
+        </div>
+    </div>
+
+    <div class="page" id="page10">
+        <div class="card">
+            <h1>Question 8 ✨</h1>
+            <p>Can we forget the bad moments?</p><button onclick="nextPage()">Yes 😊</button><button
+                onclick="noBtn()">No 😢</button>
+        </div>
+    </div>
+
+    <div class="page" id="page11">
+        <div class="card">
+            <h1>Question 9 ❤️</h1>
+            <p>Will you forgive me?</p><button onclick="nextPage()">Yes 😊</button><button onclick="noBtn()">No
+                😢</button>
+        </div>
+    </div>
+
+    <div class="page" id="page12">
+        <div class="card">
+            <h1>One Last Thing 💌</h1>
+            <p>I’m really sorry if I ever hurt you…<br>Please give me one chance 🥺</p><button
+                onclick="nextPage()">Continue</button>
+        </div>
+    </div>
+
+    <div class="page" id="page13">
+        <div class="card">
+            <h1>Final Question 💙</h1>
+            <p>Will you be my best friend forever?</p><button onclick="yesClick()">Yes 💙</button><button
+                onclick="finalNo()">No 😭</button>
+        </div>
+    </div>
+    <div class="page" id="page14">
+        <div class="card">
+            <h1>Thank You Best Friend 💙</h1>
+            <p>
+                Thank you for understanding me... 🥺<br><br>
+                "Dosti ka rishta dil se banta hai,<br>
+                Dil se nibhaya jata hai... 💙<br>
+                Galti ho agar dost se,<br>
+                To maaf bhi kiya jata hai..." ✨
+            </p>
+            <button onclick="nextPage()">Next 💙</button>
+        </div>
+    </div>
+    <div class="page" id="page15">
+        <div class="card">
+            <h1>Ek aur baat 💭</h1>
+            <p>par galti to aapki hi thi hum.. humm 😒😤</p>
+            <button onclick="nextPage()">Next 💙</button>
+        </div>
+    </div>
+    <div class="page" id="page16">
+        <div class="card">
+            <h1>Sorry 😞</h1>
+            <p>
+                sorry sorry sorry sorry sorry sorry sorry sorry sorry sorry<br>
+                sorry sorry sorry sorry sorry sorry sorry sorry sorry sorry<br>
+                sorry sorry sorry sorry sorry sorry sorry sorry sorry sorry<br>
+                sorry sorry sorry sorry sorry sorry sorry sorry sorry sorry<br>
+                sorry sorry sorry sorry sorry sorry sorry sorry sorry sorry<br>
+                sorry sorry sorry sorry sorry sorry sorry sorry sorry sorry<br>
+                sorry sorry sorry sorry sorry sorry sorry sorry sorry sorry<br>
+                sorry sorry sorry sorry sorry sorry sorry sorry sorry sorry<br>
+                sorry sorry sorry sorry sorry sorry sorry sorry sorry sorry<br>
+                sorry sorry sorry sorry sorry sorry sorry sorry sorry sorry
+            </p>
+            <p>jo aabhi bola o majak tha aur ha meri hi galti thi sorry 😞</p>
+            <button onclick="nextPage()">Next 💙</button>
+        </div>
+    </div>
+    <div class="page" id="page17">
+        <div class="card">
+            <h1>Promise 💙</h1>
+            <p>Ab se kabhi galti nahi karunga, promise! 💙</p>
+            <p>I don’t know how to make big promises in friendship, my friend,<br>But I have a life—take it whenever you wish!</p>
+            <button onclick="nextPage()">Next 💙</button>
+        </div>
+    </div>
+    <div class="page" id="page18">
+        <div class="card">
+            <h1>Thank You 💙</h1>
+            <p>Thank you, love you, and friendship above everything! 💙</p>
+            <button onclick="nextPage()">Next 💙</button>
+        </div>
+    </div>
+    <div class="page" id="page19">
+        <div class="card">
+            <h1>Your Response 💬</h1>
+            <p>If you want to say something...</p>
+            <textarea id="response" placeholder="Write your response here..." rows="4" cols="50"></textarea><br>
+            <button onclick="submitResponse()">Submit Response</button>
+            <div id="displayResponse" style="margin-top: 20px; font-weight: bold;"></div>
+            <button onclick="goHome()">Finish 💙</button>
+        </div>
+    </div>
+    <div class="page" id="noPage">
+        <div class="card">
+            <h1>Are You Sure? 🥺</h1>
+            <p>Please think once again… friendship is special 💙</p>
+            <button onclick="sureNo()">Yes, I'm sure 😢</button>
+            <button onclick="goBack()">No, Let Me Go Back 💙</button>
+        </div>
+
+    </div>
+
+    <script>
+        let currentPage = 1;
+        let noCount = 0;
+        let lastQuestionPage = 1;
+
+        function nextPage() {
+            document.getElementById("page" + currentPage).classList.remove("active");
+            currentPage++;
+            document.getElementById("page" + currentPage).classList.add("active");
+        }
+
+
+        window.onload = function () {
+            let music = document.getElementById("bgMusic");
+            music.play().catch(() => {
+                document.body.addEventListener('click', () => music.play(), { once: true });
+            });
+        };
+        function updateAnger() {
+            let value = document.getElementById("angerSlider").value;
+            let text = document.getElementById("angerText");
+
+            if (value < 30) text.innerHTML = "Aww not angry 😊";
+            else if (value < 70) text.innerHTML = "Hmm… little angry 😒";
+            else text.innerHTML = "Oh no! too much angry 😡";
+        }
+        function revealMsg() {
+            document.getElementById("secretMsg").style.display = "block";
+        }
+        let seconds = 0;
+        setInterval(() => {
+            seconds++;
+            document.getElementById("timer").innerHTML = seconds + " seconds waiting for your forgiveness 💙";
+        }, 1000);
+        function noBtn() {
+            lastQuestionPage = currentPage;
+            document.getElementById("page" + currentPage).classList.remove("active");
+            document.getElementById("noPage").classList.add("active");
+        }
+
+        function sureNo() {
+            document.getElementById("noPage").classList.remove("active");
+            currentPage++;
+            document.getElementById("page" + currentPage).classList.add("active");
+        }
+
+        function goBack() {
+            document.getElementById("noPage").classList.remove("active");
+            document.getElementById("page" + lastQuestionPage).classList.add("active");
+        }
+
+        function goHome() {
+            document.getElementById("page" + currentPage).classList.remove("active");
+            currentPage = 1;
+            document.getElementById("page1").classList.add("active");
+        }
+
+        function finalNo() {
+            noCount++;
+            if (noCount == 1) {
+                alert("Ek baar aur soch lo please 🥺");
+            } else if (noCount == 2) {
+                alert("Please yaar 💔");
+            } else if (noCount == 3) {
+                alert("Last chance 😭");
+            } else {
+                alert("No option disabled 😌💙");
+            }
+        }
+        const text = "Dear Best Friend... You are really special to me 💙";
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typing").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 80);
+            }
+        }
+        typeWriter();
+        function yesClick() {
+            document.getElementById("page13").innerHTML = "<div class='card'><h1>sach me? Buddhu jyoti 🤭</h1><button onclick='reallyYes()'>Haan 💙</button></div>";
+        }
+        function reallyYes() {
+            document.getElementById("page13").classList.remove("active");
+            document.getElementById("page14").classList.add("active");
+
+            for (let i = 0; i < 100; i++) {
+                let confetti = document.createElement("div");
+                confetti.innerHTML = "🎉";
+                confetti.style.position = "absolute";
+                confetti.style.left = Math.random() * 100 + "vw";
+                confetti.style.top = Math.random() * 100 + "vh";
+                confetti.style.fontSize = "25px";
+                document.body.appendChild(confetti);
+
+                setTimeout(() => { confetti.remove() }, 3000);
+            }
+        }
+        function createHeart() {
+            let heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+            document.body.appendChild(heart);
+
+            setTimeout(() => { heart.remove() }, 10000);
+        }
+        function createFlower() {
+            let flower = document.createElement("div");
+            flower.classList.add("flower");
+            flower.innerHTML = "🌸";
+            flower.style.left = Math.random() * 100 + "vw";
+            flower.style.fontSize = (Math.random() * 25 + 15) + "px";
+            document.body.appendChild(flower);
+
+            setTimeout(() => { flower.remove() }, 10000);
+        }
+        function createButterfly() {
+            let butterfly = document.createElement("div");
+            butterfly.classList.add("butterfly");
+            butterfly.innerHTML = "🦋";
+            butterfly.style.left = Math.random() * 100 + "vw";
+            butterfly.style.fontSize = (Math.random() * 20 + 10) + "px";
+            document.body.appendChild(butterfly);
+
+            setTimeout(() => { butterfly.remove() }, 12000);
+        }
+        function submitResponse() {
+            let response = document.getElementById('response').value;
+            if (response.trim() !== '') {
+                document.getElementById('displayResponse').innerHTML = 'Her response: ' + response;
+                alert('Response submitted: ' + response); // For you to see
+            } else {
+                alert('Please write something!');
+            }
+        }
+        setInterval(createHeart, 1000);
+        setInterval(createFlower, 1500);
+        setInterval(createButterfly, 2000);
+    </script>
+
+</body>
+
+</html>
